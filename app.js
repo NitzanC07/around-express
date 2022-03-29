@@ -4,7 +4,15 @@ const { PORT = 3000 } = process.env;
 const usersRouter = require('./routes/users.js');
 
 app.get('/', (req, res) => {
-  res.send('<h1>Main page app</h1>')
+  res.send(
+    `<html>
+    <body>
+    <h1>Main page app</h1>
+    <h2>Header 2</h2>
+    <p>Content of page</p>
+    </body>
+    </html>`
+    )
 })
 
 app.use(usersRouter)

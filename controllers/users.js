@@ -6,6 +6,7 @@ const userFilePath = path.join(__dirname, '..', 'data', 'users.json');
 const getUsers = async (req, res) => {
   try {
     const users = await getJsonFromFile(userFilePath);
+    console.log("users", users);
     res.send(users)
   } catch (err) {
     console.log('Error in getUsers: ', err);
@@ -14,9 +15,10 @@ const getUsers = async (req, res) => {
 }
 
 const getUserById = async (req, res) => {
+  console.log(req);
   try {
     const users = await getJsonFromFile(userFilePath);
-    // console.log('request PARAMS', req.params);
+    console.log("AAAA", user, users[req.params.user_id, req.params.user_id]);
     const user = users.find(user => user._id === req.params.user_id)
 
     if (!user) {
