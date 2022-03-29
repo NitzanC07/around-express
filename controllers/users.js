@@ -10,7 +10,7 @@ const getUsers = async (req, res) => {
     res.send(users);
   } catch (err) {
     console.log('Error in getUsers: ', err);
-    res.status(500).send('Somthing went wrong.');
+    res.status(500).send({ message: 'Somthing went wrong.' });
   }
 };
 
@@ -24,7 +24,7 @@ const getUserById = async (req, res) => {
     res.send(user);
   } catch (err) {
     // console.log('Error in getUserById: ', err);
-    res.status(500).send('Somthing went wrong.');
+    res.status(500).send({ message: 'Somthing went wrong.' });
   }
 };
 
