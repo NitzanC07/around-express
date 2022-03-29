@@ -8,24 +8,23 @@ const getUsers = async (req, res) => {
     const users = await getJsonFromFile(userFilePath);
     console.log("users", users);
     res.send(users)
-  } catch (err) {
+  }
+  catch (err) {
     console.log('Error in getUsers: ', err);
     res.status(500).send('Somthing went wrong.')
   }
 }
 
 const getUserById = async (req, res) => {
-  console.log(req);
   try {
     const users = await getJsonFromFile(userFilePath);
-    console.log("AAAA", user, users[req.params.user_id, req.params.user_id]);
     const user = users.find(user => user._id === req.params.user_id)
-
     if (!user) {
-      res.status(404).send('Not found.');
+      res.status(404).send('User ID not found.');
     }
     res.send(user);
-  } catch (err) {
+  }
+  catch (err) {
     console.log('Error in getUserById: ', err);
     res.status(500).send('Somthing went wrong.')
   }
