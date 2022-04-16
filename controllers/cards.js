@@ -1,11 +1,9 @@
-const path = require('path');
-const { getJsonFromFile } = require('../helpers/files');
-
-const userFilePath = path.join(__dirname, '..', 'data', 'cards.json');
+const Cards = require('../models/card');
 
 const getCards = async (req, res) => {
   try {
-    const cards = await getJsonFromFile(userFilePath);
+    const cards = await Cards.find({});
+
     res.send(cards);
   } catch (err) {
     // console.log('Error in getCards: ', err);

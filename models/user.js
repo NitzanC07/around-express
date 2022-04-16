@@ -16,7 +16,15 @@ const userSchema = new mongoose.Schema({
   },
   avatar: {
     type: String,
-    required: true
+    required: true,
+    validate: {
+      validator: function (value) {
+        return (/^http(s)?:\/{2}(w{3}.)?[\w-]+.\w+/ig.test(value))
+      }
+    }
+  },
+  _id: {
+    type: String,
   }
 });
 
