@@ -17,7 +17,7 @@ const getUserById = async (req, res) => {
   try {
     const user_id = req.params.user_id;
     const user = await User.findById(user_id);
-    // console.log(`user: ${user}\nuser_id: ${user_id}\ntype of user_id: ${typeof(user_id)}`);
+    console.log(`user: ${user}\nuser_id: ${user_id}\ntype of user_id: ${typeof(user_id)}`);
     if (!user) {
       res.status(404).send({ message: 'User ID not found.' });
     }
@@ -34,8 +34,10 @@ const createUser = async (req, res) => {
     console.log(`Creat user ${req.body}\nname: ${req.body.name}\nabout: ${req.body.about}\navatar: ${req.body.avatar}`);
     const {name, about, avatar} = req.body;
     const newUser = await User.create({name, about, avatar});
+
     console.log(`New user: ${newUser}`);
     res.status(201).send(newUser);
+
   } catch (err) {
     console.log('Error in createUser: ', err);
     res.status(500).send({ message: 'Somthing went wrong.' });
