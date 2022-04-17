@@ -23,9 +23,6 @@ const userSchema = new mongoose.Schema({
       }
     }
   },
-  _id: {
-    type: String
-  }
 });
 
 // Creating a model and export it for user information.

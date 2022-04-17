@@ -5,7 +5,7 @@ const { getCards, getCard, createNewCard, deleteCard } = require('../controllers
 
 router.get('/', getCards);
 router.get('/:card_id', getCard);
-router.delete('/:card_id', deleteCard)
 router.post('/', createNewCard);
+router.delete('/:card_id', deleteCard)
 
 module.exports = router;
