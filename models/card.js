@@ -6,16 +6,14 @@ const cardSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 2,
-    maxlength: 30
+    maxlength: 30,
   },
   link: {
     type: String,
     required: true,
     validate: {
-      validator: function (value) {
-        return (/^http(s)?:\/{2}(w{3}.)?[\w-]+.\w+/ig.test(value))
-      }
-    }
+      validator: /^http(s)?:\/{2}(w{3}.)?[\w-]+.\w+/ig,
+    },
   },
   owner: {
     type: String,
@@ -23,12 +21,12 @@ const cardSchema = new mongoose.Schema({
   },
   likes: {
     type: Array,
-    default: []
+    default: [],
   },
   createdAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
 // Creating a model and export it for user information.
