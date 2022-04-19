@@ -17,63 +17,81 @@ const createNewCard = async (req, res) => {
     const newCard = await Card.create({ name, link, owner });
     res.status(201).send(newCard);
   } catch (err) {
-    console.log(`Error in createNewCard: ${err}`);
-    res.status(400).send({ message: err.name });
+    if (err.name === 'ValidationError') {
+      console.log(`Error in createNewCard: ${err}`);
+      res.status(400).send({ message: `${err.name}: Somthing wrong with the input.` });
+    } else {
+      console.log(`Error in createNewCard: ${err}`);
+      res.status(500).send({ message: `${err.name}: Somthing wrong with the server.` });
+    }
   }
 };
 
 const deleteCard = async (req, res) => {
-  const selectedCard = req.params.card_id;
+  const cardId = req.params.card_id;
   try {
-    const card = await Card.findByIdAndRemove(selectedCard);
+    const card = await Card.findByIdAndRemove(cardId);
     if (card === null) {
       res.status(404).send({ message: 'Card id isn\'t found.' });
     } else {
-      res.status(200).send({ message: `Card id ${selectedCard} was deleted.` });
+      res.status(200).send({ message: `Card id ${cardId} was deleted.` });
     }
   } catch (err) {
-    console.log('Error in deleteCard function: ', err);
-    res.status(500).send({ message: 'Somthing went wrong.' });
+    if (err.name === 'CastError') {
+      console.log('Error in deleteCard function: ', err.name);
+      res.status(400).send({ message: `${err.name}: Somthing went wrong with the input.` });
+    } else {
+      console.log('Error in deleteCard function: ', err.name);
+      res.status(500).send({ message: `${err.name}: Somthing went wrong with the server.` });
+    }
   }
 };
 
 const likeCard = async (req, res) => {
-  const selectedCard = req.params.card_id;
-  console.log(selectedCard);
+  const cardId = req.params.card_id;
   try {
     const card = await Card.findByIdAndUpdate(
-      selectedCard,
+      cardId,
       { $addToSet: { likes: req.user._id } },
       { new: true },
     );
     if (card === null) {
       res.status(404).send({ message: 'Card id isn\'t found.' });
     } else {
-      res.status(200).send({ message: `Card ${selectedCard} was liked.` });
+      res.status(200).send({ message: `Card ${cardId} was liked.` });
     }
   } catch (err) {
-    console.log('Error in likeCard function: ', err);
-    res.status(500).send({ message: 'Somthing went wrong.' });
+    if (err.name === 'CastError') {
+      console.log('Error in likeCard function: ', err.name);
+      res.status(400).send({ message: `${err.name}: Somthing went wrong with the input.` });
+    } else {
+      console.log('Error in likeCard function: ', err);
+      res.status(500).send({ message: `${err.name}: Somthing went wrong with the server.` });
+    }
   }
 };
 
 const dislikeCard = async (req, res) => {
-  const selectedCard = req.params.card_id;
-  console.log(selectedCard);
+  const cardId = req.params.card_id;
   try {
     const card = await Card.findByIdAndUpdate(
-      selectedCard,
+      cardId,
       { $pull: { likes: req.user._id } },
       { new: true },
     );
     if (card === null) {
       res.status(404).send({ message: 'Card id isn\'t found.' });
     } else {
-      res.status(200).send({ message: `Card ${selectedCard} was disliked.` });
+      res.status(200).send({ message: `Card ${cardId} was disliked.` });
     }
   } catch (err) {
-    console.log('Error in dislikeCard function: ', err);
-    res.status(500).send({ message: 'Somthing went wrong.' });
+    if (err.name === 'CastError') {
+      console.log('Error in dislikeCard function: ', err);
+      res.status(400).send({ message: `${err.name}: Somthing went wrong with the input.` });
+    } else {
+      console.log('Error in dislikeCard function: ', err);
+      res.status(500).send({ message: `${err.name}: Somthing went wrong with the server.` });
+    }
   }
 };
 
