@@ -23,7 +23,7 @@ const getUserById = async (req, res) => {
   } catch (err) {
     if (err.name === 'CastError') {
       console.log('Error in getUserById, status 400: ', err.name);
-      res.status(400).send({ message: `${err.name}: Something wrong with the input.` })
+      res.status(400).send({ message: `${err.name}: Something wrong with the input.` });
     } else {
       console.log('Error in getUserById, status 500: ', err.name);
       res.status(500).send({ message: 'Somthing went wrong with the server.' });
